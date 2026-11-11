@@ -1,98 +1,83 @@
-# fares-snake
+# Snake
 
-SNAKE, a childhood game, do you still remember the little phone you used to play with?
----------------------------------------------------------------
-##################################################################
+[Français](README.fr.md) | **English**
 
-This file was generated on 16/05/2025 by FARES TOUAZI.  
-This file contains instructions to help you install and run SNAKE.
+A Snake game in Python for 1 or 2 players, with three maps, three difficulty levels and a
+graphical interface built on `fltk`.
 
-##################################################################
+> Author: FARES TOUAZI
 
------------------------  
-GENERAL INFORMATION  
------------------------  
-1. Title: Snake  
+## Features
 
-2. Author  
-   Name: Touazi Fares  
-   Email address: touazifaresjr1@gmail.com  
+- **Solo** or **two-player** mode on the same keyboard.
+- **3 maps** with different wall layouts.
+- **3 difficulty levels** (the game also speeds up slightly with every apple eaten).
+- Screen wrap-around: leave the board on one side and come back on the opposite one.
+- Replay straight from the end screen.
 
--------  
-LICENSE  
--------  
-1. License:  
-   Apache License 2.0 ( please open LICENSE.txt to see more details about project's license )
+## Controls
 
-----------  
-PREREQUISITES  
-----------  
-Before you begin, make sure your computer meets the following requirements:  
+| Player | Up | Down | Left | Right |
+|---|---|---|---|---|
+| 1 | ↑ | ↓ | ← | → |
+| 2 | `Z` (or `W`) | `S` | `Q` (or `A`) | `D` |
 
-1. Python 3.0 or higher** is installed.  
-   - If not, you can download it here: https://www.python.org/downloads/  
-2. Required Python libraries:  
-   - random, time, pyautogui 
-   - the fltk library will be imported from the fltk.py file that you need to download from the following link: https://antoinemeyer.frama.io/fltk/index.html  
+Eat apples to grow. You lose if you hit a wall or a snake body (your own or, in two-player
+mode, your opponent's). If both players crash in the same frame, the game is a draw.
 
-------------  
-INSTALLATION  
-------------  
-1. **Extracting files**:  
-   - Unzip the downloaded archive into a folder of your choice.  
-   - You can use tools like:  
-     - On Windows: Right-click on the archive and select "Extract All".  
-     - On macOS/Linux: Use the built-in extraction tool or the following command in a terminal:  
-       ```  
-       unzip snake.zip  
-       ```  
+## Installation
 
-2. **Accessing the folder**:
-   - Open a terminal or command prompt and navigate to the extracted folder:
-     ```
-     cd snake
-     ```
+Python 3.9 or later.
 
--------------------
-FILE OVERVIEW
--------------------
-1. List of downloaded files:
+```bash
+pip install -r requirements.txt
+```
 
-   A. snake.zip
-      Description: Zipped folder containing the game files
+The graphical module **`fltk.py`** is not included in this repository (it belongs to its own
+authors and is not ours to redistribute). Download it from the [original source](https://fltk-b9f35a.frama.io/) and
+put it at the project root, next to `main.py`.
 
-   B. README.md (this file)
-      Description: user guide
+## Run
 
-   C. LICENSE
-      Description: project license
+```bash
+python main.py
+```
 
-2. List of files compressed in snake.zip:
+## Project structure
 
-   A. snake.py
-      Description: main script of the game
+```
+main.py                 entry point
+fltk.py                 graphics library (provided separately, not in the repo)
+assets/                 application icon
+snake/
+├── app.py              start-up menus, then successive games
+├── jeu.py              game loop and end screen
+├── partie.py           game state and rules in action (no GUI)
+├── regles.py           pure rule functions (moves, collisions, apples)
+├── cartes.py           the three maps, drawn in ASCII
+├── constantes.py       board size, controls, difficulty intervals
+├── affichage.py        window size, cell -> pixel conversion
+├── dessin.py           drawing of one frame
+├── menus.py            mode / map / difficulty menus
+├── ui.py               text and button helpers
+└── textes.py           all interface texts
+tests/                  unit tests (rules, maps, game)
+```
 
-   B. snake_by_mihimihi.ico
-      Description: icon of the SNAKE game
+`regles.py`, `partie.py` and `cartes.py` do not depend on `fltk`, so they can be tested without a
+display. (Module and identifier names are in French, as in the original project.)
 
-## IMPORTANT !!! :
-### - fltk.py file must be copied to the snake folder after decompression
+## Tests
 
--------------
-RUNNING THE GAME
--------------
-1. In the terminal or command prompt, run the main script of the game:
-    ```
-    python snake.py
-    ```
+```bash
+python -m unittest discover -s tests -t . -v
+```
 
-----------
-SUPPORT
-----------
-If you encounter problems or have questions:
+## Credits
 
-- Check that Python is properly installed by typing ```python --version``` in a terminal.
-- Ensure that all dependencies are installed.
-- Contact me at [ touazifaresjr1@gmail.com ] for assistance.
+- Graphics are powered by `fltk.py` ([source](https://fltk-b9f35a.frama.io/)), © its original authors.
+- Icon *snake* by Mihimihi ([source](https://www.flaticon.com/free-icon/snake_8277654)).
 
-THANK YOU FOR TRYING SNAKE!
+## License
+
+See the [LICENSE](LICENSE) file. It does not cover `fltk.py` or the icon, which belong to their own authors.
